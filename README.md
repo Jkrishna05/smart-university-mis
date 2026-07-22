@@ -1,3 +1,8 @@
+![Node.js](https://img.shields.io/badge/Node.js-Express-green)
+![MySQL](https://img.shields.io/badge/Database-MySQL-blue)
+![TiDB](https://img.shields.io/badge/Cloud-TiDB-orange)
+![JWT](https://img.shields.io/badge/Auth-JWT-red)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 # 🎓 University MIS (Management Information System)
 
 A full-stack **University Management Information System (MIS)** built using **Node.js, Express.js, MySQL (TiDB Cloud)** following a clean **Repository-Service-Controller Architecture**.
