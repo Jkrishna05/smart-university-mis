@@ -1,3 +1,4 @@
+import db from "../config/db.js";
 import {
 
     createMarks,
@@ -25,6 +26,47 @@ import {
     getStudentResultSummary
 
 } from "../repositories/marks.repository.js";
+import { createNotificationService } from "./notification.service.js";
+
+const notifyLowMarks = async (enrollmentId, marksObtained, totalMarks) => {
+    try {
+        const percentage = Number(totalMarks) > 0
+            ? Number(((Number(marksObtained) / Number(totalMarks)) * 100).toFixed(2))
+            : 0;
+
+        if (percentage >= 60) {
+            return;
+        }
+
+        const [studentRows] = await db.execute(
+            `
+            SELECT s.user_id AS studentUserId
+            FROM enrollments e
+            INNER JOIN students s ON e.student_id = s.id
+            WHERE e.id = ?
+            LIMIT 1
+            `,
+            [enrollmentId]
+        );
+
+        const studentUserId = studentRows[0]?.studentUserId;
+
+        if (!studentUserId) {
+            return;
+        }
+
+        await createNotificationService({
+            title: "Low marks alert",
+            message: `Your recent score is ${percentage}% which is below the passing benchmark. Please contact your faculty for support.`,
+            notification_type: "marks",
+            target_role: "student",
+            target_user_id: studentUserId,
+            source_module: "marks"
+        });
+    } catch (error) {
+        console.error("Failed to create marks notification", error);
+    }
+};
 
 /**
  * Create Marks
@@ -72,7 +114,7 @@ export const createMarksService = async (data) => {
         throw new Error("Marks already entered.");
     }
 
-    return await createMarks(
+    const result = await createMarks(
 
         enrollment_id,
 
@@ -81,6 +123,10 @@ export const createMarksService = async (data) => {
         marks_obtained
 
     );
+
+    await notifyLowMarks(enrollment_id, marks_obtained, exam[0].total_marks);
+
+    return result;
 
 };
 
@@ -176,13 +222,17 @@ export const updateMarksService = async (
 
     }
 
-    return await updateMarks(
+    const result = await updateMarks(
 
         id,
 
         data.marks_obtained
 
     );
+
+    await notifyLowMarks(mark[0].enrollment_id, data.marks_obtained, exam[0].total_marks);
+
+    return result;
 
 };
 

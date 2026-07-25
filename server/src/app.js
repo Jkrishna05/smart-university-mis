@@ -11,6 +11,7 @@ import courseRoutes from './routes/course.routes.js';
 import courseOfferingRoutes from './routes/courseOffering.routes.js';
 import enrollmentRoutes from './routes/enrollment.routes.js';
 import examRoutes from './routes/exam.routes.js';
+import feesRoutes from './routes/fees.routes.js';
 import marksRoutes from './routes/marks.routes.js';
 import dashboardRoutes from './routes/dashboard.routes.js';
 const app = express();
@@ -34,6 +35,7 @@ app.use("/courses", courseRoutes);
 app.use("/course-offerings", courseOfferingRoutes);
 app.use("/enrollments", enrollmentRoutes);
 app.use("/exams", examRoutes);
+app.use("/fees", feesRoutes);
 app.use("/marks", marksRoutes);
 app.use("/dashboard", dashboardRoutes);
 

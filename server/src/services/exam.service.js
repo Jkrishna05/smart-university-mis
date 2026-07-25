@@ -1,3 +1,4 @@
+import db from "../config/db.js";
 import {
 
     createExam,
@@ -17,6 +18,39 @@ import {
     deleteExam
 
 } from "../repositories/exam.repository.js";
+import { createNotificationService } from "./notification.service.js";
+
+const notifyNewExam = async (courseOfferingId, examName, examType, examDate) => {
+    try {
+        const [enrollments] = await db.execute(
+            `
+            SELECT s.user_id AS studentUserId
+            FROM enrollments e
+            INNER JOIN students s ON e.student_id = s.id
+            WHERE e.course_offering_id = ?
+            AND e.status = 'enrolled'
+            `,
+            [courseOfferingId]
+        );
+
+        for (const enrollment of enrollments) {
+            if (!enrollment.studentUserId) {
+                continue;
+            }
+
+            await createNotificationService({
+                title: "New exam scheduled",
+                message: `A new ${examType} exam named ${examName} has been scheduled for ${examDate}.`,
+                notification_type: "exam",
+                target_role: "student",
+                target_user_id: enrollment.studentUserId,
+                source_module: "exam"
+            });
+        }
+    } catch (error) {
+        console.error("Failed to create exam notification", error);
+    }
+};
 
 /**
  * Create Exam
@@ -61,7 +95,7 @@ export const createExamService = async (data) => {
         throw new Error("Exam already exists.");
     }
 
-    return await createExam(
+    const result = await createExam(
 
         course_offering_id,
 
@@ -74,6 +108,10 @@ export const createExamService = async (data) => {
         total_marks
 
     );
+
+    await notifyNewExam(course_offering_id, exam_name, exam_type, exam_date);
+
+    return result;
 
 };
 

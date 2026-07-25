@@ -1,3 +1,4 @@
+import db from "../config/db.js";
 import {
 
     createAttendance,
@@ -23,6 +24,58 @@ import {
     getAttendanceSummary
 
 } from "../repositories/attendance.repository.js";
+import { createNotificationService } from "./notification.service.js";
+
+const notifyLowAttendance = async (enrollmentId) => {
+    try {
+        const [studentRows] = await db.execute(
+            `
+            SELECT s.user_id AS studentUserId
+            FROM enrollments e
+            INNER JOIN students s ON e.student_id = s.id
+            WHERE e.id = ?
+            LIMIT 1
+            `,
+            [enrollmentId]
+        );
+
+        const studentUserId = studentRows[0]?.studentUserId;
+
+        if (!studentUserId) {
+            return;
+        }
+
+        const [summaryRows] = await db.execute(
+            `
+            SELECT
+                COUNT(*) AS totalRecords,
+                SUM(status = 'present') AS totalPresent
+            FROM attendance
+            WHERE enrollment_id = ?
+            `,
+            [enrollmentId]
+        );
+
+        const totalRecords = Number(summaryRows[0]?.totalRecords || 0);
+        const totalPresent = Number(summaryRows[0]?.totalPresent || 0);
+        const percentage = totalRecords > 0
+            ? Number(((totalPresent / totalRecords) * 100).toFixed(2))
+            : 0;
+
+        if (percentage < 75) {
+            await createNotificationService({
+                title: "Attendance warning",
+                message: `Your attendance is ${percentage}% this term. Please attend classes regularly.`,
+                notification_type: "attendance",
+                target_role: "student",
+                target_user_id: studentUserId,
+                source_module: "attendance"
+            });
+        }
+    } catch (error) {
+        console.error("Failed to create attendance notification", error);
+    }
+};
 
 /**
  * Create Attendance
@@ -64,7 +117,7 @@ export const createAttendanceService = async (data) => {
         );
     }
 
-    return await createAttendance(
+    const result = await createAttendance(
 
         enrollment_id,
 
@@ -74,6 +127,10 @@ export const createAttendanceService = async (data) => {
 
 
     );
+
+    await notifyLowAttendance(enrollment_id);
+
+    return result;
 
 };
 
