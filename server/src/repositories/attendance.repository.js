@@ -6,8 +6,7 @@ import db from "../config/db.js";
 export const createAttendance = async (
     enrollment_id,
     attendance_date,
-    status,
-    remarks
+    status
 ) => {
 
     const [result] = await db.execute(
@@ -16,16 +15,14 @@ export const createAttendance = async (
         (
             enrollment_id,
             attendance_date,
-            status,
-            remarks
+            status
         )
-        VALUES (?, ?, ?, ?)
+        VALUES (?, ?, ?)
         `,
         [
             enrollment_id,
             attendance_date,
             status,
-            remarks
         ]
     );
 
@@ -101,8 +98,6 @@ export const getAllAttendance = async () => {
 
             a.status,
 
-            a.remarks
-
         FROM attendance a
 
         INNER JOIN enrollments e
@@ -168,7 +163,6 @@ export const getAttendanceByStudent = async (student_id) => {
 
             a.status,
 
-            a.remarks
 
         FROM attendance a
 
@@ -213,7 +207,7 @@ export const getAttendanceByCourseOffering = async (
 
             a.status,
 
-            a.remarks
+        
 
         FROM attendance a
 
@@ -259,7 +253,6 @@ export const getAttendanceByDate = async (
 
             a.status,
 
-            a.remarks
 
         FROM attendance a
 
@@ -305,13 +298,12 @@ export const updateAttendance = async (
 
             status = ?,
 
-            remarks = ?
+        
 
         WHERE id = ?
         `,
         [
             status,
-            remarks,
             id
         ]
     );

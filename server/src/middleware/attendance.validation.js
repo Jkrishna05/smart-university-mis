@@ -30,12 +30,6 @@ export const createAttendanceValidation = [
             "Status must be present, absent, late or leave."
         ),
 
-    body("remarks")
-        .optional()
-        .isLength({ max: 255 })
-        .withMessage(
-            "Remarks cannot exceed 255 characters."
-        )
 
 ];
 
@@ -57,11 +51,5 @@ export const updateAttendanceValidation = [
             "Status must be present, absent, late or leave."
         ),
 
-    body("remarks")
-        .optional()
-        .isLength({ max: 255 })
-        .withMessage(
-            "Remarks cannot exceed 255 characters."
-        )
 
 ];

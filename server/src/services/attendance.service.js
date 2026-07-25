@@ -37,7 +37,6 @@ export const createAttendanceService = async (data) => {
 
         status,
 
-        remarks
 
     } = data;
 
@@ -73,7 +72,6 @@ export const createAttendanceService = async (data) => {
 
         status,
 
-        remarks
 
     );
 
@@ -171,7 +169,7 @@ export const updateAttendanceService = async (
 
         status,
 
-        remarks
+    
 
     } = data;
 
@@ -181,7 +179,6 @@ export const updateAttendanceService = async (
 
         status,
 
-        remarks
 
     );
 
