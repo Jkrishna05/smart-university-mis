@@ -20,7 +20,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 
@@ -38,5 +40,20 @@ app.use("/exams", examRoutes);
 app.use("/fees", feesRoutes);
 app.use("/marks", marksRoutes);
 app.use("/dashboard", dashboardRoutes);
+
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "Route not found"
+    });
+});
+
+app.use((err, req, res, next) => {
+    console.error("Unhandled error:", err);
+    res.status(err.statusCode || 500).json({
+        success: false,
+        message: err.message || "Internal Server Error"
+    });
+});
 
 export default app;

@@ -20,7 +20,7 @@ import { authMiddleware } from "../middleware/authmiddleware.js";
 
 import { authorizeRoles } from "../middleware/role.middleware.js";
 
-import { validate } from "../middleware/validation.middleware.js";
+import { validate } from "../middleware/validate.middleware.js";
 
 import {
 
@@ -28,7 +28,7 @@ import {
 
     updateExamValidation
 
-} from "../validations/exam.validation.js";
+} from "../middleware/exam.validation.js";
 
 const router = express.Router();
 

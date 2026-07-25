@@ -24,7 +24,7 @@ import {
 
     updateCourseValidation
 
-} from "../validations/course.validation.js";
+} from "../middleware/course.validation.js";
 
 import { validate } from "../middleware/validate.middleware.js";
 

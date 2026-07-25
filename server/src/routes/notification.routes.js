@@ -24,13 +24,13 @@ import { authMiddleware } from "../middleware/authmiddleware.js";
 
 import { authorizeRoles } from "../middleware/role.middleware.js";
 
-import { validate } from "../middleware/validation.middleware.js";
+import { validate } from "../middleware/validate.middleware.js";
 
 import {
 
     createNotificationValidation
 
-} from "../validations/notification.validation.js";
+} from "../middleware/notification.validation.js";
 
 const router = express.Router();
 

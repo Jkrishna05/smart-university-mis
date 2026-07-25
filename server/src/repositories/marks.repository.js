@@ -283,6 +283,52 @@ export const getMarksByExam = async (
 };
 
 /**
+ * Get Marks By Course Offering
+ */
+export const getMarksByCourseOffering = async (
+    course_offering_id
+) => {
+
+    const [rows] = await db.execute(
+        `
+        SELECT
+
+            s.registration_no,
+
+            u.name,
+
+            e.exam_name,
+
+            m.marks_obtained
+
+        FROM marks m
+
+        INNER JOIN enrollments en
+            ON m.enrollment_id = en.id
+
+        INNER JOIN students s
+            ON en.student_id = s.id
+
+        INNER JOIN users u
+            ON s.user_id = u.id
+
+        INNER JOIN exams e
+            ON m.exam_id = e.id
+
+        WHERE e.course_offering_id = ?
+
+        ORDER BY
+            u.name,
+            e.exam_name
+        `,
+        [course_offering_id]
+    );
+
+    return rows;
+
+};
+
+/**
  * Update Marks
  */
 export const updateMarks = async (

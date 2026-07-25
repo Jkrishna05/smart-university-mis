@@ -22,7 +22,7 @@ import { authMiddleware } from "../middleware/authmiddleware.js";
 
 import { authorizeRoles } from "../middleware/role.middleware.js";
 
-import { validate } from "../middleware/validation.middleware.js";
+import { validate } from "../middleware/validate.middleware.js";
 
 import {
 
@@ -30,7 +30,7 @@ import {
 
     updateEnrollmentValidation
 
-} from "../validations/enrollment.validation.js";
+} from "../middleware/enrollment.validation.js";
 
 const router = express.Router();
 
