@@ -1,0 +1,72 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: university_mis_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mis_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: university_mis_backend
+    restart: always
+    environment:
+      PORT: ${PORT}
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      NODE_ENV: ${NODE_ENV}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+    ports:
+      - '5000:5000'
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - mis_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: university_mis_frontend
+    restart: always
+    networks:
+      - mis_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: university_mis_nginx
+    restart: always
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - mis_network
+
+volumes:
+  mysql_data:
+
+networks:
+  mis_network:
+    driver: bridge

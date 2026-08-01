@@ -1,0 +1,52 @@
+# ============================================================
+# OIT MIS — Git Ignore Rules
+# ============================================================
+
+# ── Environment & Secrets (NEVER commit) ─────────────────────
+.env
+.env.local
+.env.production
+!.env.example
+
+# ── Node.js ──────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ── Build Output ─────────────────────────────────────────────
+frontend/dist/
+frontend/build/
+backend/dist/
+
+# ── SSL Certificates ────────────────────────────────────────
+certbot/
+*.pem
+*.key
+*.crt
+
+# ── Database Backups ────────────────────────────────────────
+backups/
+*.sql
+*.sql.gz
+
+# ── Docker ───────────────────────────────────────────────────
+mysql_data/
+
+# ── IDE & OS ─────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ─────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── Coverage & Testing ──────────────────────────────────────
+coverage/
+.nyc_output/

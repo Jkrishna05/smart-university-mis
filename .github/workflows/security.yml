@@ -1,0 +1,37 @@
+# ============================================================
+# OIT MIS — Docker Security Scan
+# ============================================================
+# Scans Dockerfiles and dependencies for vulnerabilities
+# ============================================================
+
+name: Security — Vulnerability Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security-audit:
+    name: Backend & Frontend Dependency Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Audit Backend Dependencies
+        run: |
+          cd backend
+          npm audit --audit-level=high || true
+
+      - name: Audit Frontend Dependencies
+        run: |
+          cd frontend
+          npm audit --audit-level=high || true

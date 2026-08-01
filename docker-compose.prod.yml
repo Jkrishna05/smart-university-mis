@@ -1,0 +1,128 @@
+# ============================================================
+# OIT MIS — Production Docker Compose
+# ============================================================
+# Usage:
+#   docker compose -f docker-compose.prod.yml up -d --build
+#
+# Or with pre-built GHCR images (from CI/CD):
+#   docker compose -f docker-compose.prod.yml up -d
+#
+# Prerequisites:
+#   1. Copy .env.example → .env and set real production secrets
+#   2. Point your domain DNS A record to this server's IP
+#   3. Run ./scripts/init-ssl.sh to get Let's Encrypt certs
+# ============================================================
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: oit_mis_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backups:/backups
+    networks:
+      - mis_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  backend:
+    image: ${BACKEND_IMAGE:-orion-mis-backend:latest}
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: oit_mis_backend
+    restart: always
+    environment:
+      PORT: ${PORT}
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      NODE_ENV: production
+      CORS_ORIGIN: https://${DOMAIN}
+    expose:
+      - "5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - mis_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  frontend:
+    image: ${FRONTEND_IMAGE:-orion-mis-frontend:latest}
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: oit_mis_frontend
+    restart: always
+    expose:
+      - "80"
+    networks:
+      - mis_network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+
+  nginx:
+    image: nginx:alpine
+    container_name: oit_mis_nginx
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - mis_network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+
+  # Let's Encrypt certificate auto-renewal
+  certbot:
+    image: certbot/certbot
+    container_name: oit_mis_certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  mysql_data:
+
+networks:
+  mis_network:
+    driver: bridge

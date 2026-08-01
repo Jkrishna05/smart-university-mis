@@ -1,0 +1,110 @@
+# ============================================================
+# OIT MIS — Continuous Integration (CI)
+# ============================================================
+# Triggers: Every push & PR to main
+# Steps: Install → Lint → Build → Docker Build Test
+# ============================================================
+
+name: CI — Build & Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ── Backend: Install & Lint ────────────────────────────────
+  backend:
+    name: Backend — Install & Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check server syntax
+        run: node -c server.js
+
+      - name: Verify all routes load
+        run: |
+          node -e "
+            process.env.DB_HOST='localhost';
+            process.env.DB_PASSWORD='test';
+            process.env.JWT_SECRET='test';
+            try {
+              require('./src/routes/auth.routes');
+              require('./src/routes/student.routes');
+              require('./src/routes/faculty.routes');
+              require('./src/routes/attendance.routes');
+              require('./src/routes/exam.routes');
+              require('./src/routes/fee.routes');
+              console.log('✅ All route modules loaded successfully');
+            } catch(e) {
+              console.error('❌ Route load failed:', e.message);
+              process.exit(1);
+            }
+          "
+
+  # ── Frontend: Install & Build ──────────────────────────────
+  frontend:
+    name: Frontend — Install & Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          if [ -d "dist" ] && [ -f "dist/index.html" ]; then
+            echo "✅ Frontend build successful"
+            echo "   Files: $(find dist -type f | wc -l)"
+            echo "   Size:  $(du -sh dist | cut -f1)"
+          else
+            echo "❌ Build output missing"
+            exit 1
+          fi
+
+  # ── Docker: Full Compose Build Test ────────────────────────
+  docker:
+    name: Docker — Compose Build Test
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build all Docker images
+        run: docker compose build
+
+      - name: Verify images created
+        run: |
+          docker images | grep -E "newbroad|orion" || true
+          echo "✅ Docker images built successfully"

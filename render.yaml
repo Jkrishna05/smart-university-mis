@@ -1,0 +1,56 @@
+# ============================================================
+# OIT MIS — 1-Click Cloud Deployment Manifest (Render / Railway)
+# ============================================================
+
+services:
+  # ── Backend API Service ────────────────────────────────────
+  - type: web
+    name: oit-mis-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    region: singapore
+    plan: starter
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 24h
+      - key: DB_HOST
+        fromDatabase:
+          name: oit-mis-mysql
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: oit-mis-mysql
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: oit-mis-mysql
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: oit-mis-mysql
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: oit-mis-mysql
+          property: database
+
+  # ── Frontend Web Service ──────────────────────────────────
+  - type: web
+    name: oit-mis-frontend
+    env: docker
+    dockerfilePath: ./frontend/Dockerfile
+    region: singapore
+    plan: starter
+
+databases:
+  # ── Managed MySQL Database ─────────────────────────────────
+  - name: oit-mis-mysql
+    databaseName: university_mis
+    user: root
+    region: singapore
