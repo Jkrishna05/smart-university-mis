@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { User, Student, Faculty, Admin, Department, Course, CourseOffering, Enrollment, Attendance, Exam, Result, AuditLog, Fee, Hostel, Book, LibraryBorrow, Inventory, Message, Event } = require('../../models');
+const { User, Student, Faculty, Admin, Department, Course, CourseOffering, Enrollment, Attendance, Exam, Result, AuditLog, Fee, Hostel, Book, LibraryBorrow, Inventory, Message, Event, sequelize } = require('../../models');
 
 const rawFirstNames = [
   'Aadhya', 'Aarav', 'Aarohi', 'Aayan', 'Abhinav', 'Aditi', 'Aditya', 'Advaith', 'Advik', 'Ahana',
@@ -25,8 +25,9 @@ const rawLastNames = [
 const seedDatabase = async (force = false) => {
   try {
     const userCount = await User.count();
-    if (userCount > 10 && !force) {
-      console.log('📦 Database already populated. Skipping...');
+    const arabAdmin = await User.findOne({ where: { email: 'arabdas98@gmail.com' } });
+    if (arabAdmin && !force) {
+      console.log('📦 Database already populated with 5 admins. Skipping...');
       return;
     }
 
@@ -34,25 +35,27 @@ const seedDatabase = async (force = false) => {
     const salt = await bcrypt.genSalt(10);
 
     if (force || userCount > 0) {
-      await Event.destroy({ where: {}, truncate: false });
-      await Message.destroy({ where: {}, truncate: false });
-      await Inventory.destroy({ where: {}, truncate: false });
-      await LibraryBorrow.destroy({ where: {}, truncate: false });
-      await Book.destroy({ where: {}, truncate: false });
-      await Hostel.destroy({ where: {}, truncate: false });
-      await Fee.destroy({ where: {}, truncate: false });
-      await AuditLog.destroy({ where: {}, truncate: false });
-      await Result.destroy({ where: {}, truncate: false });
-      await Attendance.destroy({ where: {}, truncate: false });
-      await Enrollment.destroy({ where: {}, truncate: false });
-      await Exam.destroy({ where: {}, truncate: false });
-      await CourseOffering.destroy({ where: {}, truncate: false });
-      await Course.destroy({ where: {}, truncate: false });
-      await Student.destroy({ where: {}, truncate: false });
-      await Faculty.destroy({ where: {}, truncate: false });
-      await Admin.destroy({ where: {}, truncate: false });
-      await User.destroy({ where: {}, truncate: false });
-      await Department.destroy({ where: {}, truncate: false });
+      await sequelize.query('SET FOREIGN_KEY_CHECKS = 0;');
+      await Event.destroy({ where: {}, truncate: true });
+      await Message.destroy({ where: {}, truncate: true });
+      await Inventory.destroy({ where: {}, truncate: true });
+      await LibraryBorrow.destroy({ where: {}, truncate: true });
+      await Book.destroy({ where: {}, truncate: true });
+      await Hostel.destroy({ where: {}, truncate: true });
+      await Fee.destroy({ where: {}, truncate: true });
+      await AuditLog.destroy({ where: {}, truncate: true });
+      await Result.destroy({ where: {}, truncate: true });
+      await Attendance.destroy({ where: {}, truncate: true });
+      await Enrollment.destroy({ where: {}, truncate: true });
+      await Exam.destroy({ where: {}, truncate: true });
+      await CourseOffering.destroy({ where: {}, truncate: true });
+      await Course.destroy({ where: {}, truncate: true });
+      await Student.destroy({ where: {}, truncate: true });
+      await Faculty.destroy({ where: {}, truncate: true });
+      await Admin.destroy({ where: {}, truncate: true });
+      await User.destroy({ where: {}, truncate: true });
+      await Department.destroy({ where: {}, truncate: true });
+      await sequelize.query('SET FOREIGN_KEY_CHECKS = 1;');
     }
 
     // 1. DEPARTMENTS
@@ -68,15 +71,25 @@ const seedDatabase = async (force = false) => {
     const facultyPass = await bcrypt.hash('Faculty@123', salt);
     const studentPass = await bcrypt.hash('Student@123', salt);
 
-    // 2. ADMIN USER
-    const adminUser = await User.create({
-      username: 'Dr. Rajesh Kumar (Admin)',
-      email: 'admin@oit.edu',
-      password: adminPass,
-      role: 'Admin',
-      status: 'active'
-    });
-    await Admin.create({ user_id: adminUser.id, designation: 'System Administrator' });
+    // 2. SYSTEM ADMINISTRATORS (5 Admins)
+    const adminList = [
+      { name: 'Arab Das', email: 'arabdas98@gmail.com', desig: 'Chief System Administrator' },
+      { name: 'Dhruv Mohapatro', email: 'dhruvmohapatro3@gmail.com', desig: 'Senior MIS Administrator' },
+      { name: 'Biswajit Barik', email: 'biswajitv178@gmail.com', desig: 'Database Administrator' },
+      { name: 'Jai Krishna', email: 'gourimanirout@gmail.com', desig: 'Infrastructure Administrator' },
+      { name: 'Surya Kanta Lenka', email: 'suryakantalenka017@gmail.com', desig: 'Security Administrator' },
+    ];
+
+    for (let a of adminList) {
+      const u = await User.create({
+        username: a.name,
+        email: a.email,
+        password: adminPass,
+        role: 'Admin',
+        status: 'active'
+      });
+      await Admin.create({ user_id: u.id, designation: a.desig });
+    }
 
     // 3. 10 FACULTY MEMBERS
     const facultyList = [

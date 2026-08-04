@@ -75,6 +75,32 @@ jobs:
           script: |
             set -e
             cd ${{ secrets.DEPLOY_PATH || '/opt/oit-mis' }}
+            sudo chown -R $(whoami) . 2>/dev/null || true
+            git config --global --add safe.directory '*'
             git pull origin main
+            # Create temporary cert if missing so Nginx boots
+            if [ ! -f certbot/conf/live/cert.pem ]; then
+              sudo openssl req -x509 -nodes -newkey rsa:2048 \
+                -keyout certbot/conf/live/key.pem \
+                -out certbot/conf/live/cert.pem \
+                -days 365 \
+                -subj "/CN=${{ secrets.DEPLOY_HOST }}.nip.io" || true
+            fi
+
             docker compose -f docker-compose.prod.yml up -d --build
+
+            # Request real Let's Encrypt certificate for trusted 🔒 padlock
+            docker compose -f docker-compose.prod.yml run --rm certbot certonly \
+              --webroot --webroot-path=/var/www/certbot \
+              --register-unsafely-without-email --agree-tos \
+              -d "${{ secrets.DEPLOY_HOST }}.nip.io" --non-interactive || true
+
+            # Apply Let's Encrypt cert and reload nginx
+            LE_DIR="certbot/conf/live/${{ secrets.DEPLOY_HOST }}.nip.io"
+            if [ -f "$LE_DIR/fullchain.pem" ]; then
+              sudo cp "$LE_DIR/fullchain.pem" certbot/conf/live/cert.pem
+              sudo cp "$LE_DIR/privkey.pem" certbot/conf/live/key.pem
+              docker compose -f docker-compose.prod.yml exec -T nginx nginx -s reload || true
+            fi
+
             docker image prune -f

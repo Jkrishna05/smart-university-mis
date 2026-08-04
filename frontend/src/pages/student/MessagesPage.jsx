@@ -50,8 +50,8 @@ const StudentMessagesPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Send Form */}
         <div className="md:col-span-1 glass-card p-6">
-          <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
-            <PaperAirplaneIcon className="w-5 h-5 text-amber-400" /> Send Query
+          <h3 className="text-base font-bold text-campus-navy-900 mb-4 flex items-center gap-2">
+            <PaperAirplaneIcon className="w-5 h-5 text-campus-gold-600" /> Send Query
           </h3>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
@@ -80,8 +80,8 @@ const StudentMessagesPage = () => {
 
         {/* Message Log */}
         <div className="md:col-span-2 glass-card p-6">
-          <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
-            <ChatBubbleLeftRightIcon className="w-5 h-5 text-indigo-400" /> Message History
+          <h3 className="text-base font-bold text-campus-navy-900 mb-4 flex items-center gap-2">
+            <ChatBubbleLeftRightIcon className="w-5 h-5 text-campus-navy-600" /> Message History
           </h3>
           {loading ? (
             <div className="shimmer h-32 rounded-xl"></div>
@@ -90,13 +90,13 @@ const StudentMessagesPage = () => {
           ) : (
             <div className="space-y-4 max-h-[500px] overflow-y-auto pr-1">
               {messages.map((m) => (
-                <div key={m.message_id} className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                <div key={m.message_id} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-indigo-400">To: {m.receiver?.username || 'Faculty'}</span>
+                    <span className="font-bold text-campus-navy-600">To: {m.receiver?.username || 'Faculty'}</span>
                     <span className="text-[10px] text-slate-400">{new Date(m.createdAt).toLocaleString()}</span>
                   </div>
-                  <h4 className="font-bold text-white text-sm">{m.subject}</h4>
-                  <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/40 p-2.5 rounded-lg">{m.content}</p>
+                  <h4 className="font-bold text-campus-navy-900 text-sm">{m.subject}</h4>
+                  <p className="text-xs text-slate-500 leading-relaxed bg-slate-950/40 p-2.5 rounded-lg">{m.content}</p>
                 </div>
               ))}
             </div>

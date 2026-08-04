@@ -76,15 +76,15 @@ const StudentTranscriptPage = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <span className="badge-gold">Verified OIT Student Transcript</span>
-            <h2 className="text-2xl font-extrabold text-white mt-2">{profile?.user?.username}</h2>
-            <p className="text-xs text-slate-300 mt-1">
-              Roll No: <strong className="text-amber-400 font-mono">{profile?.roll_no}</strong> • Registration: <strong>{profile?.registration_no}</strong>
+            <h2 className="text-2xl font-extrabold text-campus-navy-900 mt-2">{profile?.user?.username}</h2>
+            <p className="text-xs text-slate-500 mt-1">
+              Roll No: <strong className="text-campus-gold-600 font-mono">{profile?.roll_no}</strong> • Registration: <strong>{profile?.registration_no}</strong>
             </p>
-            <p className="text-xs text-indigo-300 mt-0.5">{profile?.department?.department_name} • Orion Institute of Technology</p>
+            <p className="text-xs text-campus-navy-500 mt-0.5">{profile?.department?.department_name} • Orion Institute of Technology</p>
           </div>
-          <div className="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 text-center min-w-[140px]">
+          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center min-w-[140px]">
             <p className="text-xs text-slate-400 uppercase font-bold">Cumulative CGPA</p>
-            <p className="text-3xl font-black text-amber-400">3.85</p>
+            <p className="text-3xl font-black text-campus-gold-600">3.85</p>
             <p className="text-[10px] text-emerald-400 font-semibold mt-1">First Class Distinction</p>
           </div>
         </div>
@@ -92,8 +92,8 @@ const StudentTranscriptPage = () => {
 
       {/* Grade Breakdown Table */}
       <div className="glass-card p-6">
-        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <AcademicCapIcon className="w-5 h-5 text-amber-400" /> OIT Semester Grade History
+        <h3 className="text-lg font-bold text-campus-navy-900 mb-4 flex items-center gap-2">
+          <AcademicCapIcon className="w-5 h-5 text-campus-gold-600" /> OIT Semester Grade History
         </h3>
         <table className="data-table">
           <thead>

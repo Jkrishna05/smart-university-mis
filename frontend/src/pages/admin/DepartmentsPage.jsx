@@ -51,7 +51,7 @@ const DepartmentsPage = () => {
     { key: 'created_at', label: 'Created', render: (r) => new Date(r.created_at).toLocaleDateString() },
     { key: 'actions', label: 'Actions', sortable: false, render: (r) => (
       <div className="flex gap-2">
-        <button onClick={() => openEdit(r)} className="text-primary-600 hover:text-primary-800 text-sm font-medium">Edit</button>
+        <button onClick={() => openEdit(r)} className="text-campus-navy-600 hover:text-campus-navy-800 text-sm font-medium">Edit</button>
         <button onClick={() => setDeleteTarget(r)} className="text-red-500 hover:text-red-700 text-sm font-medium">Delete</button>
       </div>
     )}
@@ -68,7 +68,7 @@ const DepartmentsPage = () => {
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title={editing ? 'Edit Department' : 'Add Department'}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div><label className="form-label">Department Name</label><input className="form-input" {...register('department_name', { required: 'Required' })} /></div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-dark-border">
+          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
             <button type="button" onClick={() => setModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary">{editing ? 'Update' : 'Create'}</button>
           </div>

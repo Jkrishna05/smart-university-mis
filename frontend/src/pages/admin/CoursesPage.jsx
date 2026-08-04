@@ -54,7 +54,7 @@ const CoursesPage = () => {
     { key: 'credits', label: 'Credits', sortable: true },
     { key: 'actions', label: 'Actions', sortable: false, render: (r) => (
       <div className="flex gap-2">
-        <button onClick={() => openEdit(r)} className="text-primary-600 hover:text-primary-800 text-sm font-medium">Edit</button>
+        <button onClick={() => openEdit(r)} className="text-campus-navy-600 hover:text-campus-navy-800 text-sm font-medium">Edit</button>
         <button onClick={() => setDeleteTarget(r)} className="text-red-500 hover:text-red-700 text-sm font-medium">Delete</button>
       </div>
     )}
@@ -74,7 +74,7 @@ const CoursesPage = () => {
           <div><label className="form-label">Course Name</label><input className="form-input" {...register('course_name', { required: 'Required' })} /></div>
           <div><label className="form-label">Course Code</label><input className="form-input" {...register('course_code', { required: 'Required' })} /></div>
           <div><label className="form-label">Credits</label><input type="number" min="1" max="6" className="form-input" {...register('credits', { required: 'Required' })} /></div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-dark-border">
+          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
             <button type="button" onClick={() => setModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary">{editing ? 'Update' : 'Create'}</button>
           </div>

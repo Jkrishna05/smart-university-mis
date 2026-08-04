@@ -113,7 +113,7 @@ const HostelsPage = () => {
               <input className="form-input" {...register('warden_phone', { required: 'Required' })} />
             </div>
           </div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
             <button type="button" onClick={() => setModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary">Allocate</button>
           </div>

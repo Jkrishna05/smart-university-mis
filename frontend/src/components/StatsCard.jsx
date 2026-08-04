@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 
 const StatsCard = ({ title, value, icon: Icon, color = 'primary', trend, trendValue }) => {
   const colorMap = {
-    primary: 'from-primary-500 to-primary-600',
+    primary: 'from-campus-navy-600 to-campus-navy-500',
     emerald: 'from-emerald-500 to-emerald-600',
-    amber: 'from-amber-500 to-amber-600',
+    amber: 'from-campus-gold-500 to-campus-gold-600',
     rose: 'from-rose-500 to-rose-600',
     blue: 'from-blue-500 to-blue-600',
     violet: 'from-violet-500 to-violet-600',
@@ -13,14 +13,14 @@ const StatsCard = ({ title, value, icon: Icon, color = 'primary', trend, trendVa
   };
 
   const bgMap = {
-    primary: 'bg-primary-50 dark:bg-primary-900/20',
-    emerald: 'bg-emerald-50 dark:bg-emerald-900/20',
-    amber: 'bg-amber-50 dark:bg-amber-900/20',
-    rose: 'bg-rose-50 dark:bg-rose-900/20',
-    blue: 'bg-blue-50 dark:bg-blue-900/20',
-    violet: 'bg-violet-50 dark:bg-violet-900/20',
-    cyan: 'bg-cyan-50 dark:bg-cyan-900/20',
-    orange: 'bg-orange-50 dark:bg-orange-900/20'
+    primary: 'bg-campus-navy-50',
+    emerald: 'bg-emerald-50',
+    amber: 'bg-campus-gold-50',
+    rose: 'bg-rose-50',
+    blue: 'bg-blue-50',
+    violet: 'bg-violet-50',
+    cyan: 'bg-cyan-50',
+    orange: 'bg-orange-50'
   };
 
   return (
@@ -31,8 +31,8 @@ const StatsCard = ({ title, value, icon: Icon, color = 'primary', trend, trendVa
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-gray-500 dark:text-dark-muted">{title}</p>
-          <p className="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <p className="text-sm font-medium text-slate-500">{title}</p>
+          <p className="mt-2 text-3xl font-extrabold text-campus-navy-900 tracking-tight">
             {value}
           </p>
           {trend && (

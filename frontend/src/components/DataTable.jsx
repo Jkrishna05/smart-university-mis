@@ -28,9 +28,9 @@ const DataTable = ({ columns, data, pagination, onPageChange, onSearch, onSort, 
   return (
     <div className="glass-card overflow-hidden">
       {/* Toolbar */}
-      <div className="p-4 border-b border-gray-100 dark:border-dark-border flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row gap-3 items-center justify-between">
         <div className="relative w-full sm:w-80">
-          <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
           <input
             type="text"
             placeholder="Search..."
@@ -66,7 +66,7 @@ const DataTable = ({ columns, data, pagination, onPageChange, onSearch, onSort, 
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 dark:divide-dark-border bg-white dark:bg-dark-card">
+          <tbody className="divide-y divide-slate-100 bg-white">
             {loading ? (
               Array.from({ length: 5 }).map((_, i) => (
                 <tr key={i}>
@@ -78,7 +78,7 @@ const DataTable = ({ columns, data, pagination, onPageChange, onSearch, onSort, 
             ) : data.length === 0 ? (
               <tr>
                 <td colSpan={columns.length} className="text-center py-12">
-                  <div className="text-gray-400 dark:text-dark-muted">
+                  <div className="text-slate-400">
                     <svg className="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                     </svg>
@@ -109,8 +109,8 @@ const DataTable = ({ columns, data, pagination, onPageChange, onSearch, onSort, 
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="p-4 border-t border-gray-100 dark:border-dark-border flex items-center justify-between">
-          <p className="text-sm text-gray-500 dark:text-dark-muted">
+        <div className="p-4 border-t border-slate-200 flex items-center justify-between">
+          <p className="text-sm text-slate-500">
             Showing <span className="font-semibold">{((pagination.page - 1) * pagination.limit) + 1}</span> to{' '}
             <span className="font-semibold">{Math.min(pagination.page * pagination.limit, pagination.total)}</span> of{' '}
             <span className="font-semibold">{pagination.total}</span> results
@@ -119,7 +119,7 @@ const DataTable = ({ columns, data, pagination, onPageChange, onSearch, onSort, 
             <button
               onClick={() => onPageChange?.(pagination.page - 1)}
               disabled={!pagination.hasPrev}
-              className="p-2 rounded-lg border border-gray-200 dark:border-dark-border disabled:opacity-40 hover:bg-gray-50 dark:hover:bg-dark-card transition-colors"
+              className="p-2 rounded-lg border border-slate-200 disabled:opacity-40 hover:bg-slate-50 transition-colors"
             >
               <ChevronLeftIcon className="w-4 h-4" />
             </button>
@@ -140,8 +140,8 @@ const DataTable = ({ columns, data, pagination, onPageChange, onSearch, onSort, 
                   onClick={() => onPageChange?.(pageNum)}
                   className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors ${
                     pagination.page === pageNum
-                      ? 'bg-primary-600 text-white shadow-lg shadow-primary-500/25'
-                      : 'border border-gray-200 dark:border-dark-border hover:bg-gray-50 dark:hover:bg-dark-card text-gray-600 dark:text-dark-muted'
+                      ? 'bg-campus-navy-700 text-white shadow-lg shadow-campus-navy-500/25'
+                      : 'border border-slate-200 hover:bg-slate-50 text-slate-600'
                   }`}
                 >
                   {pageNum}
@@ -151,7 +151,7 @@ const DataTable = ({ columns, data, pagination, onPageChange, onSearch, onSort, 
             <button
               onClick={() => onPageChange?.(pagination.page + 1)}
               disabled={!pagination.hasNext}
-              className="p-2 rounded-lg border border-gray-200 dark:border-dark-border disabled:opacity-40 hover:bg-gray-50 dark:hover:bg-dark-card transition-colors"
+              className="p-2 rounded-lg border border-slate-200 disabled:opacity-40 hover:bg-slate-50 transition-colors"
             >
               <ChevronRightIcon className="w-4 h-4" />
             </button>

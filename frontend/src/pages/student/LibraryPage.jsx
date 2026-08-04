@@ -31,7 +31,7 @@ const StudentLibraryPage = () => {
     { key: 'title', label: 'Book Title', render: (r) => r.book?.title },
     { key: 'author', label: 'Author', render: (r) => r.book?.author },
     { key: 'issue_date', label: 'Issue Date' },
-    { key: 'due_date', label: 'Due Date', render: (r) => <strong className="text-amber-400">{r.due_date}</strong> },
+    { key: 'due_date', label: 'Due Date', render: (r) => <strong className="text-campus-gold-600">{r.due_date}</strong> },
     { key: 'status', label: 'Status', render: (r) => <span className="badge-info">{r.status}</span> }
   ];
 
@@ -46,15 +46,15 @@ const StudentLibraryPage = () => {
 
       <div className="space-y-6">
         <div className="glass-card p-6">
-          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <ClockIcon className="w-5 h-5 text-amber-400" /> My Currently Issued Books
+          <h3 className="text-lg font-bold text-campus-navy-900 mb-4 flex items-center gap-2">
+            <ClockIcon className="w-5 h-5 text-campus-gold-600" /> My Currently Issued Books
           </h3>
           <DataTable columns={borrowColumns} data={myBorrows} loading={loading} />
         </div>
 
         <div className="glass-card p-6">
-          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <BookOpenIcon className="w-5 h-5 text-indigo-400" /> Full Library Catalog Search
+          <h3 className="text-lg font-bold text-campus-navy-900 mb-4 flex items-center gap-2">
+            <BookOpenIcon className="w-5 h-5 text-campus-navy-600" /> Full Library Catalog Search
           </h3>
           <DataTable columns={bookColumns} data={books} loading={loading} />
         </div>

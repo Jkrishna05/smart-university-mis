@@ -119,7 +119,7 @@ const FeesPage = () => {
       sortable: false,
       render: (r) => (
         <div className="flex gap-2">
-          <button onClick={() => openEdit(r)} className="text-primary-600 hover:text-primary-800 text-sm font-medium">Update Payment</button>
+          <button onClick={() => openEdit(r)} className="text-campus-navy-600 hover:text-campus-navy-800 text-sm font-medium">Update Payment</button>
           <button onClick={() => setDeleteTarget(r)} className="text-red-500 hover:text-red-700 text-sm font-medium">Delete</button>
         </div>
       )
@@ -188,7 +188,7 @@ const FeesPage = () => {
             <label className="form-label">Due Date</label>
             <input type="date" className="form-input" {...register('due_date', { required: 'Required' })} />
           </div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
             <button type="button" onClick={() => setModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary">{editing ? 'Save Payment' : 'Issue Bill'}</button>
           </div>

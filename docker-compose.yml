@@ -4,8 +4,8 @@ services:
     container_name: university_mis_mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-university_mis_2024}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-university_mis}
     volumes:
       - mysql_data:/var/lib/mysql
     networks:

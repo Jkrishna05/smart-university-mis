@@ -88,11 +88,11 @@ const Dashboard = () => {
           datasets={[{ data: gradeDistribution.map(g => g.count) }]}
         />
         <div className="glass-card p-6">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Quick Info</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Info</h3>
           <div className="space-y-4">
             {deptStudents.map((dept, i) => (
-              <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-dark-bg/50">
-                <span className="text-sm font-medium text-gray-700 dark:text-dark-text">{dept.department_name}</span>
+              <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-gray-50">
+                <span className="text-sm font-medium text-gray-700">{dept.department_name}</span>
                 <span className="badge-info">{dept.student_count} students</span>
               </div>
             ))}

@@ -23,8 +23,8 @@ const FacultyMessagesPage = () => {
       </div>
 
       <div className="glass-card p-6">
-        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <ChatBubbleLeftRightIcon className="w-5 h-5 text-amber-400" /> Student Queries Inbox
+        <h3 className="text-lg font-bold text-campus-navy-900 mb-4 flex items-center gap-2">
+          <ChatBubbleLeftRightIcon className="w-5 h-5 text-campus-gold-600" /> Student Queries Inbox
         </h3>
 
         {loading ? (
@@ -34,13 +34,13 @@ const FacultyMessagesPage = () => {
         ) : (
           <div className="space-y-4">
             {messages.map((m) => (
-              <div key={m.message_id} className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+              <div key={m.message_id} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-amber-400">From Student: {m.sender?.username} ({m.sender?.email})</span>
+                  <span className="font-bold text-campus-gold-600">From Student: {m.sender?.username} ({m.sender?.email})</span>
                   <span className="text-[10px] text-slate-400">{new Date(m.createdAt).toLocaleString()}</span>
                 </div>
-                <h4 className="font-bold text-white text-base">{m.subject}</h4>
-                <p className="text-xs text-slate-300 bg-slate-950/60 p-3 rounded-lg leading-relaxed">{m.content}</p>
+                <h4 className="font-bold text-campus-navy-900 text-base">{m.subject}</h4>
+                <p className="text-xs text-slate-500 bg-slate-950/60 p-3 rounded-lg leading-relaxed">{m.content}</p>
               </div>
             ))}
           </div>

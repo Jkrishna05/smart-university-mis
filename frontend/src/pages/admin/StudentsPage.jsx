@@ -105,7 +105,7 @@ const StudentsPage = () => {
     )},
     { key: 'actions', label: 'Actions', sortable: false, render: (row) => (
       <div className="flex gap-2">
-        <button onClick={() => openEdit(row)} className="text-primary-600 hover:text-primary-800 text-sm font-medium">Edit</button>
+        <button onClick={() => openEdit(row)} className="text-campus-navy-600 hover:text-campus-navy-800 text-sm font-medium">Edit</button>
         <button onClick={() => setDeleteTarget(row)} className="text-red-500 hover:text-red-700 text-sm font-medium">Delete</button>
       </div>
     )}
@@ -132,7 +132,7 @@ const StudentsPage = () => {
             <div>
               <label className="form-label">User Account</label>
               {unassignedUsers.length === 0 ? (
-                <p className="text-xs text-amber-600 dark:text-amber-400 p-2.5 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800">
+                <p className="text-xs text-amber-600 p-2.5 bg-amber-50 rounded-xl border border-amber-200">
                   ⚠️ No unassigned Student users found. Please create a new User with Role <strong>Student</strong> in the <strong>Users</strong> menu first.
                 </p>
               ) : (
@@ -159,7 +159,7 @@ const StudentsPage = () => {
           <div><label className="form-label">Guardian Name</label><input className="form-input" {...register('guardian_name')} /></div>
           <div><label className="form-label">Guardian Phone</label><input className="form-input" {...register('guardian_phone')} /></div>
           <div className="md:col-span-2"><label className="form-label">Address</label><textarea className="form-input" rows="2" {...register('address')}></textarea></div>
-          <div className="md:col-span-2 flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-dark-border">
+          <div className="md:col-span-2 flex justify-end gap-3 pt-4 border-t border-gray-100">
             <button type="button" onClick={() => setModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" disabled={!editing && unassignedUsers.length === 0} className="btn-primary">{editing ? 'Update' : 'Create'}</button>
           </div>

@@ -54,7 +54,7 @@ const ReportsPage = () => {
       </div>
 
       <div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Audit Logs</h2>
+        <h2 className="text-xl font-bold text-gray-900 mb-4">Audit Logs</h2>
         <DataTable columns={logColumns} data={auditLogs} pagination={logsPagination} onPageChange={setLogsPage} />
       </div>
     </motion.div>

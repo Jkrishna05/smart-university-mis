@@ -148,11 +148,11 @@ const FacultyAttendancePage = () => {
                               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                                 attendanceMap[s.student_id] === st
                                   ? st === 'Present'
-                                    ? 'bg-emerald-600 text-white shadow-md'
+                                    ? 'bg-emerald-600 text-campus-navy-900 shadow-md'
                                     : st === 'Absent'
-                                    ? 'bg-red-600 text-white shadow-md'
-                                    : 'bg-amber-500 text-white shadow-md'
-                                  : 'bg-gray-100 dark:bg-dark-border text-gray-600 dark:text-dark-muted hover:bg-gray-200'
+                                    ? 'bg-red-600 text-campus-navy-900 shadow-md'
+                                    : 'bg-amber-500 text-campus-navy-900 shadow-md'
+                                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                               }`}
                             >
                               {st}

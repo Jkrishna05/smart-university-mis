@@ -32,13 +32,29 @@ const navItems = [
 
 const StudentLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    if (window.innerWidth < 1024) {
+      setMobileOpen(prev => !prev);
+    } else {
+      setCollapsed(prev => !prev);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-900 dark:bg-slate-950">
-      <Sidebar items={navItems} title="STATE UNIVERSITY" subtitle="Student Portal" collapsed={collapsed} />
-      <div className={`transition-all duration-300 ${collapsed ? 'lg:ml-20' : 'lg:ml-64'}`}>
-        <Navbar onMenuToggle={() => setCollapsed(!collapsed)} />
-        <main className="p-6">
+    <div className="min-h-screen bg-campus-parchment-100">
+      <Sidebar
+        items={navItems}
+        title="OIT PORTAL"
+        subtitle="Student Portal"
+        collapsed={collapsed}
+        mobileOpen={mobileOpen}
+        onMobileClose={() => setMobileOpen(false)}
+      />
+      <div className={`transition-all duration-300 ml-0 ${collapsed ? 'lg:ml-20' : 'lg:ml-64'}`}>
+        <Navbar onMenuToggle={handleMenuToggle} />
+        <main className="p-4 sm:p-6">
           <Outlet />
         </main>
       </div>

@@ -18,10 +18,10 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineEleme
 const chartTypes = { bar: Bar, pie: Pie, line: Line, doughnut: Doughnut };
 
 const defaultColors = [
-  'rgba(99, 102, 241, 0.8)',
+  'rgba(27, 54, 93, 0.85)',
   'rgba(16, 185, 129, 0.8)',
-  'rgba(245, 158, 11, 0.8)',
-  'rgba(239, 68, 68, 0.8)',
+  'rgba(217, 119, 6, 0.8)',
+  'rgba(159, 18, 57, 0.8)',
   'rgba(139, 92, 246, 0.8)',
   'rgba(6, 182, 212, 0.8)',
   'rgba(236, 72, 153, 0.8)',
@@ -36,10 +36,10 @@ const ChartWidget = ({ type = 'bar', title, labels, datasets, height = 300 }) =>
     datasets: datasets.map((ds, i) => ({
       ...ds,
       backgroundColor: ds.backgroundColor || (type === 'pie' || type === 'doughnut' ? defaultColors : defaultColors[i]),
-      borderColor: ds.borderColor || defaultColors[i]?.replace('0.8', '1'),
+      borderColor: ds.borderColor || defaultColors[i]?.replace('0.8', '1').replace('0.85', '1'),
       borderWidth: ds.borderWidth || (type === 'line' ? 2 : 1),
       borderRadius: type === 'bar' ? 8 : undefined,
-      fill: type === 'line' ? { target: 'origin', above: defaultColors[i]?.replace('0.8', '0.1') } : undefined,
+      fill: type === 'line' ? { target: 'origin', above: defaultColors[i]?.replace('0.8', '0.1').replace('0.85', '0.1') } : undefined,
       tension: type === 'line' ? 0.4 : undefined,
       pointRadius: type === 'line' ? 4 : undefined,
       pointHoverRadius: type === 'line' ? 6 : undefined
@@ -55,17 +55,19 @@ const ChartWidget = ({ type = 'bar', title, labels, datasets, height = 300 }) =>
         labels: {
           usePointStyle: true,
           padding: 15,
+          color: '#475569',
           font: { family: 'Inter', size: 12 }
         }
       },
       title: {
         display: !!title,
         text: title,
+        color: '#0b192c',
         font: { family: 'Inter', size: 16, weight: '600' },
         padding: { bottom: 20 }
       },
       tooltip: {
-        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+        backgroundColor: 'rgba(11, 25, 44, 0.92)',
         titleFont: { family: 'Inter' },
         bodyFont: { family: 'Inter' },
         padding: 12,
@@ -74,8 +76,8 @@ const ChartWidget = ({ type = 'bar', title, labels, datasets, height = 300 }) =>
       }
     },
     scales: type === 'pie' || type === 'doughnut' ? {} : {
-      x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 } } },
-      y: { grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { font: { family: 'Inter', size: 11 } }, beginAtZero: true }
+      x: { grid: { display: false }, ticks: { color: '#64748b', font: { family: 'Inter', size: 11 } } },
+      y: { grid: { color: 'rgba(148, 163, 184, 0.15)' }, ticks: { color: '#64748b', font: { family: 'Inter', size: 11 } }, beginAtZero: true }
     }
   };
 

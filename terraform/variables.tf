@@ -17,5 +17,5 @@ variable "instance_type" {
 variable "ssh_public_key" {
   description = "Public SSH key for server authentication"
   type        = string
-  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExamplePublicKeyForOITDeployment"
+  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKwS5zvKd39xGbsJ9AoLWKtSToFsw/+mPoH7EcojIs+R arabd@LENOVO"
 }

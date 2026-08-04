@@ -1,9 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
 import {
-  SunIcon,
-  MoonIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
   BellIcon,
@@ -43,7 +40,6 @@ const defaultNotifications = [
 
 const Navbar = ({ onMenuToggle }) => {
   const { user, logout } = useAuth();
-  const { darkMode, toggleDarkMode } = useTheme();
   const navigate = useNavigate();
 
   const [notifications, setNotifications] = useState(defaultNotifications);
@@ -76,53 +72,45 @@ const Navbar = ({ onMenuToggle }) => {
   };
 
   return (
-    <header className="sticky top-0 z-20 backdrop-blur-xl bg-white/80 dark:bg-dark-card/80 border-b border-gray-100 dark:border-dark-border">
+    <header className="sticky top-0 z-20 backdrop-blur-xl bg-white/90 border-b border-slate-200/80">
       <div className="flex items-center justify-between h-16 px-6">
         <div className="flex items-center gap-4">
           <button
             onClick={onMenuToggle}
-            className="lg:hidden p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-dark-border transition-colors"
+            className="lg:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors"
             id="menu-toggle-btn"
           >
-            <Bars3Icon className="w-5 h-5 text-gray-600 dark:text-dark-muted" />
+            <Bars3Icon className="w-5 h-5 text-slate-600" />
           </button>
           <div className="hidden sm:block">
-            <h1 className="text-sm font-semibold text-gray-900 dark:text-white">
+            <h1 className="text-sm font-semibold text-campus-navy-900">
               {user?.role} Dashboard
             </h1>
-            <p className="text-xs text-gray-400 dark:text-dark-muted">
+            <p className="text-xs text-slate-500">
               {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Dark mode toggle */}
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-dark-border transition-colors"
-            id="theme-toggle-btn"
-          >
-            {darkMode ? (
-              <SunIcon className="w-5 h-5 text-amber-400" />
-            ) : (
-              <MoonIcon className="w-5 h-5 text-gray-500" />
-            )}
-          </button>
+          {/* Semester Badge */}
+          <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-campus-gold-50 border border-campus-gold-200">
+            <span className="text-[11px] font-bold text-campus-gold-700">🎓 Fall Semester 2025</span>
+          </div>
 
           {/* Notifications Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setShowNotifications(!showNotifications)}
-              className="relative p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-dark-border transition-colors text-gray-600 dark:text-dark-muted"
+              className="relative p-2 rounded-xl hover:bg-slate-100 transition-colors text-slate-600"
               id="notification-bell-btn"
             >
               <BellIcon className="w-5 h-5" />
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white dark:ring-dark-card animate-ping"></span>
+                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-campus-burgundy-600 rounded-full ring-2 ring-white animate-ping"></span>
               )}
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white dark:ring-dark-card"></span>
+                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-campus-burgundy-600 rounded-full ring-2 ring-white"></span>
               )}
             </button>
 
@@ -133,12 +121,12 @@ const Navbar = ({ onMenuToggle }) => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 mt-2 w-80 sm:w-96 glass-card shadow-2xl overflow-hidden z-50 p-0"
+                  className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl border border-slate-200 shadow-academic-lg overflow-hidden z-50 p-0"
                 >
-                  <div className="p-4 border-b border-gray-100 dark:border-dark-border flex items-center justify-between bg-primary-50/50 dark:bg-primary-900/10">
+                  <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-campus-navy-50">
                     <div className="flex items-center gap-2">
-                      <BellIcon className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-                      <h3 className="font-bold text-sm text-gray-900 dark:text-white">Notifications</h3>
+                      <BellIcon className="w-5 h-5 text-campus-navy-600" />
+                      <h3 className="font-bold text-sm text-campus-navy-900">Notifications</h3>
                       {unreadCount > 0 && (
                         <span className="badge-info text-xs">{unreadCount} new</span>
                       )}
@@ -146,27 +134,27 @@ const Navbar = ({ onMenuToggle }) => {
                     {unreadCount > 0 && (
                       <button
                         onClick={markAllRead}
-                        className="text-xs text-primary-600 dark:text-primary-400 hover:underline font-medium"
+                        className="text-xs text-campus-navy-600 hover:underline font-medium"
                       >
                         Mark all read
                       </button>
                     )}
                   </div>
 
-                  <div className="max-h-80 overflow-y-auto divide-y divide-gray-100 dark:divide-dark-border">
+                  <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
                     {notifications.length === 0 ? (
-                      <div className="p-6 text-center text-xs text-gray-400 dark:text-dark-muted">
+                      <div className="p-6 text-center text-xs text-slate-400">
                         No notifications right now
                       </div>
                     ) : (
                       notifications.map((n) => (
                         <div
                           key={n.id}
-                          className={`p-3.5 flex items-start gap-3 hover:bg-gray-50 dark:hover:bg-dark-border/40 transition-colors ${
-                            n.unread ? 'bg-primary-50/20 dark:bg-primary-900/10' : ''
+                          className={`p-3.5 flex items-start gap-3 hover:bg-slate-50 transition-colors ${
+                            n.unread ? 'bg-campus-navy-50/50' : ''
                           }`}
                         >
-                          <div className="p-2 rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5">
+                          <div className="p-2 rounded-lg bg-campus-navy-100 text-campus-navy-600 flex-shrink-0 mt-0.5">
                             {n.type === 'exam' ? (
                               <CalendarIcon className="w-4 h-4" />
                             ) : n.type === 'schedule' ? (
@@ -177,14 +165,14 @@ const Navbar = ({ onMenuToggle }) => {
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center justify-between">
-                              <h4 className="text-xs font-bold text-gray-900 dark:text-white">{n.title}</h4>
-                              <span className="text-[10px] text-gray-400">{n.time}</span>
+                              <h4 className="text-xs font-bold text-slate-800">{n.title}</h4>
+                              <span className="text-[10px] text-slate-400">{n.time}</span>
                             </div>
-                            <p className="text-xs text-gray-600 dark:text-dark-muted mt-1 leading-snug">{n.message}</p>
+                            <p className="text-xs text-slate-500 mt-1 leading-snug">{n.message}</p>
                           </div>
                           <button
                             onClick={() => clearNotification(n.id)}
-                            className="text-gray-400 hover:text-gray-600 text-xs"
+                            className="text-slate-400 hover:text-slate-600 text-xs"
                           >
                             ×
                           </button>
@@ -193,8 +181,8 @@ const Navbar = ({ onMenuToggle }) => {
                     )}
                   </div>
 
-                  <div className="p-2.5 border-t border-gray-100 dark:border-dark-border bg-gray-50/50 dark:bg-dark-bg/50 text-center">
-                    <p className="text-[11px] text-gray-400">Notifications auto-sync with university schedule</p>
+                  <div className="p-2.5 border-t border-slate-200 bg-slate-50 text-center">
+                    <p className="text-[11px] text-slate-400">Notifications auto-sync with university schedule</p>
                   </div>
                 </motion.div>
               )}
@@ -202,12 +190,12 @@ const Navbar = ({ onMenuToggle }) => {
           </div>
 
           {/* User info */}
-          <div className="hidden sm:flex items-center gap-3 pl-3 border-l border-gray-200 dark:border-dark-border">
+          <div className="hidden sm:flex items-center gap-3 pl-3 border-l border-slate-200">
             <div className="text-right">
-              <p className="text-sm font-semibold text-gray-700 dark:text-white">{user?.username}</p>
-              <p className="text-xs text-gray-400 dark:text-dark-muted">{user?.email}</p>
+              <p className="text-sm font-semibold text-slate-700">{user?.username}</p>
+              <p className="text-xs text-slate-400">{user?.email}</p>
             </div>
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-campus-navy-700 to-campus-navy-500 flex items-center justify-center">
               <span className="text-white text-sm font-bold">{user?.username?.charAt(0)}</span>
             </div>
           </div>
@@ -215,7 +203,7 @@ const Navbar = ({ onMenuToggle }) => {
           {/* Logout */}
           <button
             onClick={handleLogout}
-            className="p-2 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-400 hover:text-red-500 transition-colors"
+            className="p-2 rounded-xl hover:bg-rose-50 text-slate-400 hover:text-rose-500 transition-colors"
             id="logout-btn"
           >
             <ArrowRightOnRectangleIcon className="w-5 h-5" />

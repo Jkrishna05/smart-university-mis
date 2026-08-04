@@ -102,10 +102,10 @@ const StudentFeesPage = () => {
       {/* Summary Cards */}
       {latestFee && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="glass-card p-6 border-l-4 border-indigo-500">
+          <div className="glass-card p-6 border-l-4 border-campus-navy-500">
             <p className="text-xs font-bold text-slate-400 uppercase">Total Semester Fee</p>
-            <p className="text-3xl font-extrabold text-white mt-2">₹{parseFloat(latestFee.total_amount).toLocaleString()}</p>
-            <p className="text-xs text-indigo-300 mt-1">Semester {latestFee.semester} • Academic Year {latestFee.academic_year}</p>
+            <p className="text-3xl font-extrabold text-campus-navy-900 mt-2">₹{parseFloat(latestFee.total_amount).toLocaleString()}</p>
+            <p className="text-xs text-campus-navy-500 mt-1">Semester {latestFee.semester} • Academic Year {latestFee.academic_year}</p>
           </div>
 
           <div className="glass-card p-6 border-l-4 border-emerald-500">

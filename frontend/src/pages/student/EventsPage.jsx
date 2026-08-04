@@ -29,18 +29,18 @@ const StudentEventsPage = () => {
           <motion.div
             key={e.event_id}
             whileHover={{ y: -4 }}
-            className="glass-card p-6 border-l-4 border-indigo-500 flex flex-col justify-between"
+            className="glass-card p-6 border-l-4 border-campus-navy-500 flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="badge-gold text-[10px]">{e.event_type}</span>
-                <span className="text-xs text-amber-400 font-semibold">{new Date(e.event_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                <span className="text-xs text-campus-gold-600 font-semibold">{new Date(e.event_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
               </div>
-              <h3 className="text-lg font-bold text-white leading-snug mt-1">{e.title}</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">{e.description}</p>
+              <h3 className="text-lg font-bold text-campus-navy-900 leading-snug mt-1">{e.title}</h3>
+              <p className="text-xs text-slate-500 mt-2 leading-relaxed">{e.description}</p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+            <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-400">
               <span className="flex items-center gap-1"><MapPinIcon className="w-4 h-4 text-emerald-400" /> {e.location}</span>
               <span className="badge-info text-[10px]">Open to All</span>
             </div>

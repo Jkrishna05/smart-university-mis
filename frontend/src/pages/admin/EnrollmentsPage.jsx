@@ -61,7 +61,7 @@ const EnrollmentsPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div><label className="form-label">Student</label><select className="form-input" {...register('student_id', { required: 'Required' })}><option value="">Select</option>{students.map(s => <option key={s.student_id} value={s.student_id}>{s.user?.username} ({s.roll_no})</option>)}</select></div>
           <div><label className="form-label">Course Offering</label><select className="form-input" {...register('offering_id', { required: 'Required' })}><option value="">Select</option>{offerings.map(o => <option key={o.offering_id} value={o.offering_id}>{o.course?.course_code} - {o.course?.course_name} (Sem {o.semester}, {o.year})</option>)}</select></div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-dark-border">
+          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
             <button type="button" onClick={() => setModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary">Enroll</button>
           </div>

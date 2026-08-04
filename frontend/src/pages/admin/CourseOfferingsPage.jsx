@@ -49,7 +49,7 @@ const CourseOfferingsPage = () => {
     { key: 'semester', label: 'Semester' }, { key: 'year', label: 'Year' }, { key: 'section', label: 'Section' },
     { key: 'actions', label: 'Actions', sortable: false, render: (r) => (
       <div className="flex gap-2">
-        <button onClick={() => openEdit(r)} className="text-primary-600 hover:text-primary-800 text-sm font-medium">Edit</button>
+        <button onClick={() => openEdit(r)} className="text-campus-navy-600 hover:text-campus-navy-800 text-sm font-medium">Edit</button>
         <button onClick={() => setDeleteTarget(r)} className="text-red-500 hover:text-red-700 text-sm font-medium">Delete</button>
       </div>
     )}
@@ -70,7 +70,7 @@ const CourseOfferingsPage = () => {
           <div><label className="form-label">Semester</label><input type="number" min="1" max="8" className="form-input" {...register('semester', { required: 'Required' })} /></div>
           <div><label className="form-label">Year</label><input type="number" className="form-input" {...register('year', { required: 'Required' })} /></div>
           <div><label className="form-label">Section</label><input className="form-input" {...register('section')} /></div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-dark-border">
+          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
             <button type="button" onClick={() => setModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary">{editing ? 'Update' : 'Create'}</button>
           </div>

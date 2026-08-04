@@ -56,7 +56,7 @@ const AdminEventsPage = () => {
     { key: 'event_type', label: 'Type', render: (r) => <span className="badge-gold">{r.event_type}</span> },
     { key: 'event_date', label: 'Date', render: (r) => new Date(r.event_date).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) },
     { key: 'location', label: 'Location' },
-    { key: 'description', label: 'Description', render: (r) => <span className="text-xs text-slate-300">{r.description || 'N/A'}</span> }
+    { key: 'description', label: 'Description', render: (r) => <span className="text-xs text-slate-500">{r.description || 'N/A'}</span> }
   ];
 
   return (
@@ -92,7 +92,7 @@ const AdminEventsPage = () => {
             <div><label className="form-label">Venue / Location</label><input className="form-input" {...register('location', { required: 'Required' })} /></div>
           </div>
           <div><label className="form-label">Event Description</label><textarea className="form-input" rows="3" {...register('description')}></textarea></div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
             <button type="button" onClick={() => setModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary">Schedule</button>
           </div>

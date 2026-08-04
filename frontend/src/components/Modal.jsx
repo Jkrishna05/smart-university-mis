@@ -20,7 +20,7 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+              className="fixed inset-0 bg-campus-navy-900/30 backdrop-blur-sm"
               onClick={onClose}
             />
 
@@ -30,17 +30,17 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className={`relative w-full ${sizeClasses[size]} glass-card p-0 overflow-hidden`}
+              className={`relative w-full ${sizeClasses[size]} bg-white rounded-2xl border border-slate-200 shadow-academic-lg p-0 overflow-hidden`}
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-dark-border bg-gradient-to-r from-primary-50 to-white dark:from-primary-900/20 dark:to-dark-card">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">{title}</h3>
+              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-campus-navy-50 to-white">
+                <h3 className="text-lg font-bold text-campus-navy-900">{title}</h3>
                 <button
                   onClick={onClose}
-                  className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-border transition-colors"
+                  className="p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
                   id="modal-close-btn"
                 >
-                  <XMarkIcon className="w-5 h-5 text-gray-400" />
+                  <XMarkIcon className="w-5 h-5 text-slate-400" />
                 </button>
               </div>
 

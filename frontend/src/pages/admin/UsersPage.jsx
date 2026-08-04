@@ -49,7 +49,7 @@ const UsersPage = () => {
     { key: 'created_at', label: 'Created', render: (r) => new Date(r.created_at).toLocaleDateString() },
     { key: 'actions', label: 'Actions', sortable: false, render: (r) => (
       <div className="flex gap-2">
-        <button onClick={() => openEdit(r)} className="text-primary-600 hover:text-primary-800 text-sm font-medium">Edit</button>
+        <button onClick={() => openEdit(r)} className="text-campus-navy-600 hover:text-campus-navy-800 text-sm font-medium">Edit</button>
         <button onClick={() => setDeleteTarget(r)} className="text-red-500 hover:text-red-700 text-sm font-medium">Delete</button>
       </div>
     )}

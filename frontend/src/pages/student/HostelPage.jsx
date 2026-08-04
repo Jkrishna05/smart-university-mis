@@ -32,29 +32,29 @@ const StudentHostelPage = () => {
         </div>
       ) : (
         <div className="glass-card p-6 space-y-6">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+          <div className="flex items-center justify-between pb-4 border-b border-slate-200">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-amber-500/20 border border-amber-500/30 text-amber-400">
+              <div className="p-3 rounded-2xl bg-amber-500/20 border border-amber-500/30 text-campus-gold-600">
                 <BuildingOffice2Icon className="w-8 h-8" />
               </div>
               <div>
                 <h2 className="text-xl font-bold text-white">{hostel.hostel_name}</h2>
-                <p className="text-xs text-indigo-300 font-semibold">{hostel.block} • Status: <span className="text-emerald-400 font-bold">{hostel.status}</span></p>
+                <p className="text-xs text-campus-navy-500 font-semibold">{hostel.block} • Status: <span className="text-emerald-400 font-bold">{hostel.status}</span></p>
               </div>
             </div>
             <span className="badge-gold text-lg font-mono px-4 py-1.5">{hostel.room_no}</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-3">
-              <UserIcon className="w-6 h-6 text-indigo-400" />
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+              <UserIcon className="w-6 h-6 text-campus-navy-600" />
               <div>
                 <p className="text-[11px] text-slate-400 font-bold uppercase">Hostel Warden</p>
-                <p className="text-sm font-bold text-white mt-0.5">{hostel.warden_name}</p>
+                <p className="text-sm font-bold text-campus-navy-900 mt-0.5">{hostel.warden_name}</p>
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-3">
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
               <PhoneIcon className="w-6 h-6 text-emerald-400" />
               <div>
                 <p className="text-[11px] text-slate-400 font-bold uppercase">Warden Emergency Phone</p>

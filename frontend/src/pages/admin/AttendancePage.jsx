@@ -50,7 +50,7 @@ const AdminAttendancePage = () => {
     {
       key: 'serial',
       label: 'Serial #',
-      render: (_, index) => <span className="font-mono text-amber-400 font-bold">#{(page - 1) * 10 + index + 1}</span>
+      render: (_, index) => <span className="font-mono text-campus-gold-600 font-bold">#{(page - 1) * 10 + index + 1}</span>
     },
     { key: 'roll_no', label: 'Roll No', render: (r) => <span className="badge-gold font-mono">{r.student?.roll_no}</span> },
     { key: 'student_name', label: 'Student Name (Alphabetical)', render: (r) => <strong className="text-white">{r.student?.user?.username}</strong> },
@@ -79,10 +79,10 @@ const AdminAttendancePage = () => {
       </div>
 
       {/* Section & Course Filter Bar */}
-      <div className="glass-card p-6 border-l-4 border-indigo-500">
+      <div className="glass-card p-6 border-l-4 border-campus-navy-500">
         <div className="flex items-center gap-2 mb-4">
-          <FunnelIcon className="w-5 h-5 text-amber-400" />
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider">Attendance Filters</h3>
+          <FunnelIcon className="w-5 h-5 text-campus-gold-600" />
+          <h3 className="text-sm font-bold text-campus-navy-900 uppercase tracking-wider">Attendance Filters</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -97,8 +97,8 @@ const AdminAttendancePage = () => {
                   onClick={() => { setSelectedSection(sec); setPage(1); }}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                     selectedSection === sec
-                      ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-600/30 border border-indigo-400/40'
-                      : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+                      ? 'bg-gradient-to-r from-campus-navy-700 to-campus-navy-600 text-campus-navy-900 shadow-lg shadow-campus-navy-500/20 border border-campus-navy-300'
+                      : 'bg-slate-50 text-slate-500 hover:bg-white border border-slate-200'
                   }`}
                 >
                   {sec ? `Section ${sec}` : 'All Sections'}

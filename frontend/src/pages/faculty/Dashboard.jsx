@@ -59,15 +59,15 @@ const FacultyDashboard = () => {
 
       {/* Assigned Courses List */}
       <div className="glass-card p-6">
-        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Current Course Offerings</h3>
+        <h3 className="text-lg font-bold text-gray-900 mb-4">Current Course Offerings</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {offerings.map((offering) => (
-            <div key={offering.offering_id} className="p-4 rounded-xl border border-gray-100 dark:border-dark-border bg-gray-50/50 dark:bg-dark-bg/50">
+            <div key={offering.offering_id} className="p-4 rounded-xl border border-gray-100 bg-gray-50/50">
               <div className="flex justify-between items-start">
                 <div>
                   <span className="badge-info text-xs">{offering.course?.course_code}</span>
-                  <h4 className="font-bold text-gray-900 dark:text-white mt-1">{offering.course?.course_name}</h4>
-                  <p className="text-xs text-gray-500 dark:text-dark-muted mt-1">
+                  <h4 className="font-bold text-gray-900 mt-1">{offering.course?.course_name}</h4>
+                  <p className="text-xs text-gray-500 mt-1">
                     Semester {offering.semester} ({offering.year}) • Section {offering.section}
                   </p>
                 </div>

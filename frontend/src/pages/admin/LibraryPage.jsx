@@ -104,12 +104,12 @@ const AdminLibraryPage = () => {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-xl font-bold text-white flex items-center gap-2">
-          <BookOpenIcon className="w-5 h-5 text-amber-400" /> Book Catalog
+        <h3 className="text-xl font-bold text-campus-navy-900 flex items-center gap-2">
+          <BookOpenIcon className="w-5 h-5 text-campus-gold-600" /> Book Catalog
         </h3>
         <DataTable columns={bookColumns} data={books} loading={loading} />
 
-        <h3 className="text-xl font-bold text-white flex items-center gap-2 pt-4">
+        <h3 className="text-xl font-bold text-campus-navy-900 flex items-center gap-2 pt-4">
           Borrowed Books Log
         </h3>
         <DataTable columns={borrowColumns} data={borrows} loading={loading} />
@@ -128,7 +128,7 @@ const AdminLibraryPage = () => {
             <div><label className="form-label">Total Copies</label><input type="number" className="form-input" {...register('total_copies', { required: 'Required' })} /></div>
             <div><label className="form-label">Available Copies</label><input type="number" className="form-input" {...register('available_copies', { required: 'Required' })} /></div>
           </div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
             <button type="button" onClick={() => setModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary">Add Book</button>
           </div>
@@ -158,7 +158,7 @@ const AdminLibraryPage = () => {
             <label className="form-label">Return Due Date</label>
             <input type="date" className="form-input" {...regIssue('due_date', { required: 'Required' })} />
           </div>
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
             <button type="button" onClick={() => setIssueModalOpen(false)} className="btn-secondary">Cancel</button>
             <button type="submit" className="btn-primary">Issue Book</button>
           </div>
